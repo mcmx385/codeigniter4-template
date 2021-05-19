@@ -1,0 +1,1 @@
+<a href="<?php echo isset($link) ? $link : $_SERVER['HTTP_REFERER']; ?>" class="btn btn-info mr-2">Return</a>
