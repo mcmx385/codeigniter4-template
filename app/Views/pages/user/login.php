@@ -62,7 +62,7 @@
         </div>
 
         <div class="col-md-5 pr-lg-5 mb-5 mb-md-0">
-            <img src="/svg/login.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
+            <img src="/svg/login<?php echo rand(1, 6); ?>.svg" alt="" class="img-fluid mb-3 d-none d-md-block">
         </div>
     </div>
 </div>
