@@ -1,6 +1,6 @@
 <div class="container">
     <?php echo view('components/title', ['title' => 'Publish URL', 'link' => '/teacher/courses']); ?>
-    <form action="/teacher/addLecture/<?php echo $data['course_id']; ?>" method="POST">
+    <form action="/lecture/addLecture/<?php echo $data['course_id']; ?>" method="POST">
         <div class="row">
             <div class="form-group col-12">
                 <label for="">Select Date</label>
@@ -24,7 +24,7 @@
             <th>Date</th>
             <th>Start Time</th>
             <th>End Time</th>
-            <th>Attendance URL</th>
+            <th>Attendance and Lecture Material URL</th>
         </thead>
         <tbody>
             <?php
@@ -35,7 +35,7 @@
                     <td><?php echo $lecture->date; ?></td>
                     <td><?php echo $lecture->start_time; ?></td>
                     <td><?php echo $lecture->end_time; ?></td>
-                    <td><a href="/lecture/takeAttendance/<?php echo $lecture->lecture_id; ?>"><?php echo $_SERVER['SERVER_NAME']; ?>/lecture/takeAttendance/<?php echo $lecture->lecture_id; ?></a></td>
+                    <td><a href="/lecture/takeAttendance/1/<?php echo $lecture->lecture_id; ?>"><?php echo $_SERVER['SERVER_NAME']; ?>/lecture/takeAttendance/1/<?php echo $lecture->lecture_id; ?></a></td>
                 </tr>
             <?php
             }

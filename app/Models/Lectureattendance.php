@@ -60,4 +60,13 @@ class LectureAttendance extends Model
 		];
 		return $this->save($data);
 	}
+	public function getStdAllAttend($course_id, $student_id)
+	{
+		return $this->db->table('course_lecture')
+			->select('course_lecture.lecture_id, date, start_time, end_time, attendance_id')
+			->where('course_lecture.course_id', $course_id)
+			->where('lecture_attendance.student_id', $student_id)
+			->join('lecture_attendance', 'lecture_attendance.lecture_id=course_lecture.lecture_id', 'left')
+			->get()->getResult();
+	}
 }

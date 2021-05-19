@@ -12,14 +12,20 @@ class CourselectureSeeder extends Seeder
 			[
 				'course_id' => 1,
 				'date' => '2021-05-18',
-				'start_time' => '01:54:00',
-				'end_time' => '06:54:00',
+				'start_time' => '12:00:00',
+				'end_time' => '20:00:00',
+			],
+			[
+				'course_id' => 1,
+				'date' => '2021-05-19',
+				'start_time' => '12:00:00',
+				'end_time' => '20:00:00',
 			],
 			[
 				'course_id' => 2,
 				'date' => '2021-05-19',
-				'start_time' => '04:54:00',
-				'end_time' => '09:54:00',
+				'start_time' => '12:00:00',
+				'end_time' => '20:00:00',
 			],
 		];
 

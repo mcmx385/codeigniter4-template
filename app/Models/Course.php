@@ -48,4 +48,12 @@ class Course extends Model
 	{
 		return count($this->getTeacherCourse($teacher_id));
 	}
+	public function getAllCourse()
+	{
+		return $this->select('courses.course_id, courses.code, courses.name as name, users.name as teacher_name')->join('users', 'users.id=courses.teacher_id', 'left')->findAll();
+	}
+	public function countAllCourse()
+	{
+		return count($this->getAllCourse());
+	}
 }

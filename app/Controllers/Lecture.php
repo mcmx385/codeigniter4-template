@@ -19,11 +19,10 @@ class Lecture extends BaseController
 		$lectures = $this->courseLecM->getAllLectures($course_id);
 		$students = [];
 		if ($lecture_id !== null) {
-			$students = $this->db->table('course_student')
+			$students = $this->db->table('users')
 				->select('users.id as userid, name, attendance_id')
-				->where('course_student.course_id', $course_id)
-				->join('users', 'users.id=course_student.student_id', 'left')
-				->join('lecture_attendance', 'lecture_attendance.lecture_id=' . $lecture_id . ' and lecture_attendance.student_id=course_student.student_id', 'left')
+				->where('users.rank', 'student')
+				->join('lecture_attendance', 'lecture_attendance.lecture_id=' . $lecture_id . ' and lecture_attendance.student_id=users.id', 'left')
 				->get()->getResult();
 		}
 		$this->template->teacher('lecture/attendance', ['lectures' => $lectures, 'course_id' => $course_id, 'lecture_id' => $lecture_id, 'students' => $students]);
@@ -51,22 +50,27 @@ class Lecture extends BaseController
 	get lecture and student id from url or from session
 	also need check if student is in this course
 	*/
-	public function takeAttendance($lecture_id = null, $student_id = null)
+	public function takeAttendance($enter = 0, $lecture_id = null, $student_id = null)
 	{
 		$status = 'error occured or try login first';
-		if ($lecture_id !== null && $student_id !== null) {
-			if ($this->lecAttendM->regStdAttend($lecture_id, $student_id)) {
-				$status = 'attendance taken';
-			} else {
-				$status = 'already taken';
-			}
+		if ($student_id == null && session_status() === PHP_SESSION_ACTIVE) {
+			$student_id = $_SESSION['userid'];
 		}
-		if ($lecture_id !== null && session_status() === PHP_SESSION_ACTIVE) {
-			$userid = $_SESSION['userid'];
-			if ($this->lecAttendM->regStdAttend($lecture_id, $userid)) {
-				$status = 'attendance taken';
+		if ($lecture_id !== null && $student_id !== null) {
+			$lecture_info = $this->courseLecM->getLecture($lecture_id);
+			$curr_date = date('Y-m-d');
+			$curr_time = date('H:i:s');
+			if ($curr_date == $lecture_info->date && strtotime($curr_time) > strtotime($lecture_info->start_time) && strtotime($curr_time) < strtotime($lecture_info->end_time)) {
+				if ($this->lecAttendM->regStdAttend($lecture_id, $student_id)) {
+					$status = 'attendance taken';
+				} else {
+					$status = 'already taken';
+				}
+				if ($enter) {
+					$this->urlL->head('/lecture/details/' . $lecture_id);
+				}
 			} else {
-				$status = 'already taken';
+				$status = 'not between lecture time';
 			}
 		}
 		$this->urlL->head(strtok($_SERVER['HTTP_REFERER'], '?') . '?status=' . urlencode($status));
@@ -80,5 +84,10 @@ class Lecture extends BaseController
 			->join('lecture_attendance', 'lecture_attendance.lecture_id=course_lecture.lecture_id and lecture_attendance.student_id=' . $userid, 'left')
 			->get()->getResult();
 		$this->template->student('lecture/attendance_record', ['records' => $records]);
+	}
+	public function details($lecture_id)
+	{
+		$lecture = $this->courseLecM->getLecture($lecture_id);
+		$this->template->student('lecture/details', ['lecture' => $lecture]);
 	}
 }

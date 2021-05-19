@@ -1,5 +1,5 @@
 <div class="container">
-    <h2 class="text-center py-2">Courses</h2>
+    <?php echo view('components/title', ['title' => 'Courses']); ?>
     <table class="table table-striped table-bordered table-hover">
         <thead>
             <th>ID</th>

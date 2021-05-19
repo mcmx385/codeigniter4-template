@@ -44,4 +44,8 @@ class CourseLecture extends Model
 	{
 		return $this->where('course_id', $course_id)->findAll();
 	}
+	public function getLecture($lecture_id)
+	{
+		return $this->where('lecture_id', $lecture_id)->first();
+	}
 }

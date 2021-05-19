@@ -11,7 +11,7 @@
                 foreach ($data['lectures'] as $lecture) {
                 ?>
                     <option value="<?php echo '/lecture/attendance/' . $data['course_id'] . '/' . $lecture->lecture_id; ?>" <?php if ($data['lecture_id'] == $lecture->lecture_id) : echo 'selected';
-                                                                                                                            endif; ?>><?php echo $lecture->date; ?></option>
+                                                                                                                            endif; ?>><?php echo $lecture->date; ?> <?php echo $lecture->start_time; ?>-<?php echo $lecture->end_time; ?></option>
                 <?php
                 }
                 ?>
@@ -31,8 +31,8 @@
                 ?>
                     <tr>
                         <td><?php echo $student->name; ?></td>
-                        <td><a href="/lecture/takeAttendance/<?php echo $data['lecture_id']; ?>/<?php echo $student->userid; ?>" class="btn btn-primary <?php if ($student->attendance_id) : echo 'disabled';
-                                                                                                                                                        endif; ?>">Take</a> </td>
+                        <td><a href="/lecture/takeAttendance/0/<?php echo $data['lecture_id']; ?>/<?php echo $student->userid; ?>" class="btn btn-primary <?php if ($student->attendance_id) : echo 'disabled';
+                                                                                                                                                            endif; ?>">Take</a> </td>
                     </tr>
                 <?php
                 }

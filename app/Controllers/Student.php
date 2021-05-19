@@ -9,20 +9,19 @@ class Student extends BaseController
 	public function __construct()
 	{
 		$this->courseStdM = new \App\Models\Coursestudent();
+		$this->courseM = new \App\Models\Course();
 	}
 	public function index()
 	{
-		$userid = $this->userL->autoLogout();
+		$this->userL->autoLogout();
 		$this->userL->autoRedirectRank('student');
-		$count = $this->courseStdM->countStudentCourse($userid);
+		$count = $this->courseM->countAllCourse();
 		$this->template->student('student/index', ['count' => $count]);
 	}
 	public function courses()
 	{
-		$userid = $this->userL->autoLogout();
-		$this->userL->autoRedirectRank('student');
-
-		$courses = $this->courseStdM->getStudentCourse($userid);
+		$this->userL->autoLogout();
+		$courses = $this->courseM->getAllCourse();
 		$this->template->student('student/courses', ['courses' => $courses]);
 	}
 }

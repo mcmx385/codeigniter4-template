@@ -54,4 +54,8 @@ class User extends Model
 	{
 		return $this->select('id, name')->whereIn('id', $list)->findAll();
 	}
+	public function getUserByRank($rank)
+	{
+		return $this->select('id, name')->where('rank', $rank)->findAll();
+	}
 }

@@ -38,10 +38,10 @@ class Users
     public function redirectRank($user_rank)
     {
         if ($user_rank == 'student') {
-            header('location: /student?status=' . urlencode('logged in'));
+            header('location: /student/courses?status=' . urlencode('logged in'));
             exit;
         } elseif ($user_rank == 'teacher') {
-            header('location: /teacher?status=' . urlencode('logged in'));
+            header('location: /teacher/courses?status=' . urlencode('logged in'));
             exit;
         } elseif ($user_rank == 'admin') {
             header('location: /admin?status=' . urlencode('logged in'));
