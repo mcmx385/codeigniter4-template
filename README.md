@@ -5,12 +5,12 @@ Create a starter template to faciliate fast development to any applications. Aim
 
 ## Features
 User System
-> Login/Logout/Signup/Socialite
-> Forgot/Reset/Update Password
-> Profile/Rating/Views
-> Connection/Comments/Chat
+- Login/Logout/Signup/Socialite
+- Forgot/Reset/Update Password
+- Profile/Rating/Views
+- Connection/Comments/Chat
 
 Admin System
-> Database/Table Management
-> Input Field/Dropdown Update
-> Data visualization/analysis
+- Database/Table Management
+- Input Field/Dropdown Update
+- Data visualization/analysis
