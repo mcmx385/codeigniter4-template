@@ -46,6 +46,10 @@ class Users
         } elseif ($user_rank == 'admin') {
             header('location: /admin?status=' . urlencode('logged in'));
             exit;
+
+        } elseif ($user_rank == 'user') {
+            header('location: /user?status=' . urlencode('logged in'));
+            exit;
         }
     }
     public function getUserRank()
