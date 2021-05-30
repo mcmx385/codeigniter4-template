@@ -1,0 +1,1 @@
+<div class="text-center text-primary font-weight-bold"><?php echo $_GET['status'] ? $_GET['status'] : ''; ?></div>

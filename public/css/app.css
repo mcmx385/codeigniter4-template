@@ -1,0 +1,39 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Gadugi', 'Noto Sans HK', sans-serif;
+    text-decoration: none;
+    /* transition: .5s ease-in-out;
+    -webkit-transition: .5s ease-in-out; */
+    scroll-behavior: smooth;
+}
+
+::-moz-selection {
+    background: #fad791;
+}
+
+::selection {
+    background: #fad791;
+}
+
+::-moz-selection {
+    background: #fad791;
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+}
+
+pre {
+    white-space: pre-wrap;
+    white-space: -moz-pre-wrap;
+    white-space: -pre-wrap;
+    white-space: -o-pre-wrap;
+    word-wrap: break-word;
+}

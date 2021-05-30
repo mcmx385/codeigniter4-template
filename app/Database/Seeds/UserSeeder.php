@@ -20,9 +20,6 @@ class UserSeeder extends Seeder
 				'rank' => 'student',
 			],
 			[
-				'name' => 'admin',
-				'password' => 'password',
-				'rank' => 'admin',
 			],
 		];
 
