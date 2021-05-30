@@ -116,24 +116,18 @@
 </div>
 
 <script>
-    $('#signup-form').submit(e => onSubmit(e))
-    const usernameField = document.getElementById('username');
-    const passwordField = document.getElementById('password');
-    const passwordConfirmationField = document.getElementById('passwordConfirmation');
-    const phoneField = document.getElementById('phone');
-    const emailField = document.getElementById('email');
-    const statusInst = document.getElementById('status');
     let messages = [];
 
+    $('#signup-form').submit(e => onSubmit(e))
     const onSubmit = (e) => {
         e.preventDefault()
         console.log(e)
 
-        if (ifUserExist($('#username').value)) {
-            pushMsg('Check your username');
-            chgError('usernameError', '這個用戶名已經存在');
-        } else {
-            chgError('usernameError', '');
+        ifIdentifierValid()
+        ifPasswordValid()
+        if (messages.length > 0) {
+            e.preventDefault()
+            addError('status', messages.join('<br>'))
         }
     }
 
@@ -172,154 +166,99 @@
         });
     }
 
-    // $(document).ready(function() {
-    //     $('.password_reveal').click(function() {
-    //         event.preventDefault();
-    //         var password_field = $(".password_field");
-    //         var password_icon = $(".password_icon");
-    //         if (password_field.attr("type") == "text") {
-    //             password_field.attr('type', 'password');
-    //             password_icon.addClass("fa-eye-slash");
-    //             password_icon.removeClass("fa-eye");
-    //         } else if (password_field.attr("type") == "password") {
-    //             password_field.attr('type', 'text');
-    //             password_icon.removeClass("fa-eye-slash");
-    //             password_icon.addClass("fa-eye");
-    //         }
-    //     })
+    const ifEmailExist = (email) => {
+        return true
+        $.ajax({
+            url: '/user/ifEmailExist/' + email,
+            type: 'ajax',
+            method: 'post',
+            async: false,
+            data: {},
+            success: function(data) {
+                return data
+            }
+        });
+    }
 
-    //     const usernameField = document.getElementById('username');
-    //     const passwordField = document.getElementById('password');
-    //     const passwordConfirmationField = document.getElementById('passwordConfirmation');
-    //     const phoneField = document.getElementById('phone');
-    //     const emailField = document.getElementById('email');
-    //     const formInst = document.getElementById('registerForm');
-    //     const statusInst = document.getElementById('status');
+    const ifPhoneExist = (phone) => {
+        return true
+        $.ajax({
+            url: '/user/ifPhoneExist/' + phone,
+            type: 'ajax',
+            method: 'post',
+            async: false,
+            data: {},
+            success: function(data) {
+                return data
+            }
+        });
+    }
 
-    //     formInst.addEventListener('submit', (e) => {
-    //         e.preventDefault();
-    //         var illnesses = getChecked();
-    //         $('#illness').val(illnesses);
-    //         let messages = [];
+    const ifIdentifierValid = () => {
+        if (ifUserExist($('#username').value)) {
+            pushMsg('Check your username');
+            chgError('usernameError', '這個用戶名已經存在');
+        } else {
+            chgError('usernameError', '');
+        }
 
-    //         // Display View
-    //         function pushMsg(msg) {
-    //             if (messages.indexOf(msg) == -1) {
-    //                 messages.push(msg);
-    //             }
-    //         }
+        if (ifEmailExist($('#email').value)) {
+            pushMsg('Check your email');
+            chgError('emailError', '這個用戶名已經存在');
+        } else {
+            chgError('emailError', '');
+        }
 
-    //         function displayError(elementID, msg) {
-    //             document.getElementById(elementID).innerHTML = msg;
-    //         }
+        if (ifPhoneExist($('#phone').value)) {
+            pushMsg('Check your phone');
+            chgError('phoneError', '這個電話已經存在');
+        } else {
+            chgError('phoneError', '');
+        }
+    }
 
-    //         function addError(elementID, msg) {
-    //             document.getElementById(elementID).innerHTML += "<br>" + msg;
-    //         }
+    const ifPasswordValid = () => {
+        if ($('#password').val().length <= 6) {
+            pushMsg("Check your password");
+            chgError("passwordError", "密碼必須超過6個字符");
+        } else {
+            chgError("passwordError", "");
+        }
+        if ($('#password').val() !== $('#passwordConfirmation').val()) {
+            pushMsg("Check your confirmation password");
+            chgError("passwordConfirmationError", "密碼不匹配");
+        } else {
+            chgError("passwordConfirmationError", "");
+        }
+        re = /[0-9]/;
+        if (!re.test($('#password').val())) {
+            pushMsg("Check your password");
+            addError("passwordError", "密碼必須至少包含1個數字");
+        }
+        re = /[a-z]/;
+        if (!re.test($('#password').val())) {
+            pushMsg("Check your password");
+            addError("passwordError", "密碼必須包含至少1個小寫字母");
+        }
+        re = /[A-Z]/;
+        if (!re.test($('#password').val())) {
+            pushMsg("Check your password");
+            addError("passwordError", "密碼必須包含至少1個大寫字母");
+        }
+    }
 
-    //         // Unique Field Handling
-    //         $.ajax({
-    //             url: '/user/ifUsernameExist/' + usernameField.value,
-    //             type: 'ajax',
-    //             method: 'post',
-    //             async: false,
-    //             data: {},
-    //             success: function(data) {
-    //                 if (data) {
-    //                     pushMsg("Check your username");
-    //                     displayError("usernameError", "這個用戶名已經存在");
-    //                 } else {
-    //                     displayError("usernameError", "");
-    //                 }
-    //             }
-    //         });
-
-    //         $.ajax({
-    //             url: '/user/ifEmailExist/' + emailField.value,
-    //             type: 'ajax',
-    //             method: 'post',
-    //             async: false,
-    //             data: {},
-    //             success: function(data) {
-    //                 if (data) {
-    //                     pushMsg("Check your email");
-    //                     displayError("emailError", "該電子郵件已經存在");
-    //                 } else {
-    //                     displayError("emailError", "");
-    //                 }
-    //             }
-    //         });
-
-    //         $.ajax({
-    //             url: '/user/ifPhoneExist/' + phoneField.value.replace(",", ""),
-    //             type: 'ajax',
-    //             method: 'post',
-    //             async: false,
-    //             data: {},
-    //             success: function(data) {
-    //                 if (data) {
-    //                     pushMsg("Check your phone");
-    //                     displayError("phoneError", "該電話已經存在");
-    //                 } else {
-    //                     displayError("phoneError", "");
-    //                 }
-    //             }
-    //         });
-
-    //         // Password Handling
-    //         const pwErrorBoxId = "passwordError";
-    //         if (passwordField.value.length <= 6) {
-    //             pushMsg("Check your password");
-    //             displayError(pwErrorBoxId, "密碼必須超過6個字符");
-    //         } else {
-    //             displayError(pwErrorBoxId, "");
-    //         }
-    //         if (passwordField.value !== passwordConfirmationField.value) {
-    //             pushMsg("Check your confirmation password");
-    //             displayError("passwordConfirmationError", "密碼不匹配");
-    //         } else {
-    //             displayError("passwordConfirmationError", "");
-    //         }
-    //         re = /[0-9]/;
-    //         if (!re.test(passwordField.value)) {
-    //             pushMsg("Check your password");
-    //             addError(pwErrorBoxId, "密碼必須至少包含1個數字");
-    //         }
-    //         re = /[a-z]/;
-    //         if (!re.test(passwordField.value)) {
-    //             pushMsg("Check your password");
-    //             addError(pwErrorBoxId, "密碼必須包含至少1個小寫字母");
-    //         }
-    //         re = /[A-Z]/;
-    //         if (!re.test(passwordField.value)) {
-    //             pushMsg("Check your password");
-    //             addError(pwErrorBoxId, "密碼必須包含至少1個大寫字母");
-    //         }
-
-    //         // Checkbox Checking
-    //         check();
-
-    //         // Error Displaying
-    //         if (messages.length > 0) {
-    //             e.preventDefault();
-    //             displayError = messages.join('<br>');
-    //             statusInst.innerHTML = displayError;
-    //             console.log(displayError);
-    //         }
-    //     });
-
-    //     function check() {
-    //         var i;
-    //         let sum = '';
-    //         for (i = 1; i < 10; i++) {
-    //             let checkname;
-    //             checkname = "inlineCheckbox" + i;
-    //             let checkBox = document.getElementById(checkname);
-    //             if (checkBox.checked == true) {
-    //                 sum += document.getElementById(checkname).value + ',';
-    //                 document.getElementById("demo").innerHTML = sum;
-    //             }
-    //         }
-    //     }
-    // });
+    $('.password_reveal').click(function() {
+        event.preventDefault();
+        var password_field = $(".password_field");
+        var password_icon = $(".password_icon");
+        if (password_field.attr("type") == "text") {
+            password_field.attr('type', 'password');
+            password_icon.addClass("fa-eye-slash");
+            password_icon.removeClass("fa-eye");
+        } else if (password_field.attr("type") == "password") {
+            password_field.attr('type', 'text');
+            password_icon.removeClass("fa-eye-slash");
+            password_icon.addClass("fa-eye");
+        }
+    })
 </script>

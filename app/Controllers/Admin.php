@@ -8,6 +8,6 @@ class Admin extends BaseController
 {
 	public function index()
 	{
-		$this->template->admin('index');
+		$this->template->admin('admin/index');
 	}
 }

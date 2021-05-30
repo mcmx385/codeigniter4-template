@@ -15,6 +15,7 @@ class User extends BaseController
     }
     public function signup()
     {
+        $this->userL->autoLogin();
         $this->template->user('user/signup');
     }
     public function forgot_password()

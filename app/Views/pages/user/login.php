@@ -39,12 +39,12 @@
                         <input id="password" type="password" name="password" placeholder="password" class="form-control bg-white border-left-0 border-md" required <?php echo $_GET['status'] == "attempts used up" ?  "disabled" : ''; ?>>
                     </div>
 
-                    <!--<div class="form-group col-6 mx-auto mb-4">
+                    <div class="form-group col-6 mx-auto mb-4">
                         <input class="mr-2" type="checkbox" name="keep">Keep me logged in
                     </div>
                     <div class="form-group col-6 text-right">
                         <a href="/user/forgot_password">Forgot password?</a>
-                    </div>-->
+                    </div>
 
                     <!-- Submit Button -->
                     <div class="form-group col-lg-12 mx-auto mb-0">
@@ -53,9 +53,9 @@
                     </div>
 
                     <!-- Already Registered -->
-                    <!--<div class="text-center w-100 mt-3">
+                    <div class="text-center w-100 mt-3">
                         <p>Not one of us? <a href="/user/signup" class="text-primary ml-2">Signup</a></p>
-                    </div>-->
+                    </div>
 
                 </div>
             </form>

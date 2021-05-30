@@ -14,12 +14,4 @@ class Template extends Controller
     {
         echo view('templates/admin', ['page' => 'pages/' . $page, 'data' => $data, 'title' => $title]);
     }
-    public function student($page = 'home', $data = [], $title = 'Student')
-    {
-        echo view('templates/student', ['page' => 'pages/' . $page, 'data' => $data, 'title' => $title]);
-    }
-    public function teacher($page = 'home', $data = [], $title = 'Teacher')
-    {
-        echo view('templates/teacher', ['page' => 'pages/' . $page, 'data' => $data, 'title' => $title]);
-    }
 }
