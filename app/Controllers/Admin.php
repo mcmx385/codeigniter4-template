@@ -10,4 +10,8 @@ class Admin extends BaseController
 	{
 		$this->template->admin('admin/index');
 	}
+	public function tables()
+	{
+		$this->template->admin('admin/tables');
+	}
 }
