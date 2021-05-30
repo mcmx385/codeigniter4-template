@@ -1,4 +1,4 @@
-# PHP Codeigniter Enhancement Project
+# PHP Codeigniter Starter Template
 
 ## Purpose
 Create a starter template to faciliate fast development to any applications. Aim to support a base user and admin systems.
